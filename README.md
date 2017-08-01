@@ -28,6 +28,32 @@ Red Hat periodically publishes OpenShift Origin Server binaries for Linux, which
 
 Outlined as the [Advanced Installation](https://docs.openshift.org/latest/install_config/install/advanced_install.html) method for poduction environments, OpenShift Origin is also installable via Ansible playbook made avaialble on the GitHub [openshift-ansible](https://github.com/openshift/openshift-ansible) repo.
 
+Blue Green Deployment Example
+
+The bluegreen-pipeline.yaml template contains a pipeline that demonstrates alternating blue/green deployments with a manual approval step. The template contains three routes, one main route, and 2 other routes; one prefixed by blue and the other one prefixed by green. Each time the pipeline is run, it will alternate between building the green or the blue service. You can verify the running code by browsing to the route that was just built. Once the deployment is approved, then the service that was just built becomes the active one.
+
+To run this example:
+
+    Create a fork of https://github.com/openshift/nodejs-ex.git
+    Create a new project for your pipeline on the OpenShift web console:
+        Login
+        Click on New Project
+        Enter a project name
+        Click Create
+    In the Add to Project page, click on Import YAML/JSON
+    In a separate browser tab, navigate to bluegreen-pipeline.yaml and copy its content.
+    Paste the YAML text in the text box of the Import YAML/JSON tab.
+    Click on Create
+    Leave Process the template checked and click on Continue
+    Modify the Git Repository URL to contain the URL of your fork
+    Click on Create
+    Navigate to Builds -> Pipelines
+    Click on Start Pipeline next to bluegreen-pipeline
+    Once the code has been deployed, the pipeline will pause for your approval. Click on the pause icon to approve the deployment of the changes.
+    Push a change to your fork of the nodejs-ex repository
+    Start the pipeline again. Go back to step 11 and repeat.
+
+On the first pipeline run, there will be a delay as Jenkins is instantiated for the project.
 
 ### Creating a project
 
