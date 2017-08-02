@@ -26,7 +26,7 @@ objects:
     strategy:
       jenkinsPipelineStrategy:
         jenkinsfile: |-
-          import groovy.json.JsonSlurperClasic
+          import groovy.json.JsonSlurperClassic
           try {
              timeout(time: 20, unit: 'MINUTES') {
                 def appName="${NAME}"
