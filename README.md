@@ -1,3 +1,44 @@
+### Blue Green Deployment Example
+
+The bluegreen-pipeline.yaml template contains a pipeline that demonstrates alternating blue/green deployments with a manual approval step. The template contains three routes, one main route, and 2 other routes; one prefixed by blue and the other one prefixed by green. Each time the pipeline is run, it will alternate between building the green or the blue service. You can verify the running code by browsing to the route that was just built. Once the deployment is approved, then the service that was just built becomes the active one.
+
+To run this example:
+
+   1. Use this fork of https://github.com/MichaelFitzurka/nodejs-ex.git
+   2. Create a new project for your pipeline on the OpenShift web console:
+       1. Login
+       2. Click on New Project
+       3. Enter a project name
+       4. Click Create
+   3. In the Add to Project page, click on Import YAML/JSON
+   4. In a separate browser tab, navigate to bluegreen-pipeline.yaml and copy its content.
+   5. Paste the YAML text in the text box of the Import YAML/JSON tab. (make sure the last line is lined up in yaml)
+   6. Click on Create
+   7. Leave Process the template checked and click on Continue
+   8. Modify the Git Repository URL to contain the URL of your fork (https://github.com/MichaelFitzurka/nodejs-ex.git)
+   9. Add the Ansible Username and Ansible Password
+   10. Click on Create and Continue to Overview
+   11. When the Jenkins pod has started, click on the Route to bring up Jenkins
+   12. In Jenkins, Login with OpenShift
+   13. Click on Manage Jenkins and then Manage Plugins
+   14. Click on the Available tab and search for HTTP Request Plugin
+   15. Check the HTTP Request Plugin install checkbox and click Install without restart
+   16. Leave the Jenkins tab up and switch back to Openshift
+   17. Navigate to Builds -> Pipelines
+   18. Click on Start Pipeline next to bluegreen-pipeline
+   19. This will fail at the Ansible Security Check, but it is ok ... go back to Jenkins
+   20. Click on Manage Jenkins and then In-process Script Approval
+   21. Click the Approve button for:  new groovy.json.JsonSlurperClassic
+   22. Go back to Openshift and click Start Pipeline, which will fail again at the same point
+   23. Back in Jenkins, refresh the browser and then Approve: method groovy.json.JsonSlurperClassic parseText java.lang.String
+   24. Close the Jenkins tab, return to Openshift
+   25. Click Start Pipeline
+   26. Once the code has been deployed, the pipeline will pause for your approval. Click on the pause icon to approve the deployment of the changes.
+   27. Push a change to your fork of the nodejs-ex repository
+   28. Start the pipeline again. Go back to step 25 and repeat.
+
+On the first pipeline run, there will be a delay as Jenkins is instantiated for the project.
+
 Node.js sample app on OpenShift!
 -----------------
 
@@ -28,32 +69,6 @@ Red Hat periodically publishes OpenShift Origin Server binaries for Linux, which
 
 Outlined as the [Advanced Installation](https://docs.openshift.org/latest/install_config/install/advanced_install.html) method for poduction environments, OpenShift Origin is also installable via Ansible playbook made avaialble on the GitHub [openshift-ansible](https://github.com/openshift/openshift-ansible) repo.
 
-Blue Green Deployment Example
-
-The bluegreen-pipeline.yaml template contains a pipeline that demonstrates alternating blue/green deployments with a manual approval step. The template contains three routes, one main route, and 2 other routes; one prefixed by blue and the other one prefixed by green. Each time the pipeline is run, it will alternate between building the green or the blue service. You can verify the running code by browsing to the route that was just built. Once the deployment is approved, then the service that was just built becomes the active one.
-
-To run this example:
-
-    Create a fork of https://github.com/openshift/nodejs-ex.git
-    Create a new project for your pipeline on the OpenShift web console:
-        Login
-        Click on New Project
-        Enter a project name
-        Click Create
-    In the Add to Project page, click on Import YAML/JSON
-    In a separate browser tab, navigate to bluegreen-pipeline.yaml and copy its content.
-    Paste the YAML text in the text box of the Import YAML/JSON tab.
-    Click on Create
-    Leave Process the template checked and click on Continue
-    Modify the Git Repository URL to contain the URL of your fork
-    Click on Create
-    Navigate to Builds -> Pipelines
-    Click on Start Pipeline next to bluegreen-pipeline
-    Once the code has been deployed, the pipeline will pause for your approval. Click on the pause icon to approve the deployment of the changes.
-    Push a change to your fork of the nodejs-ex repository
-    Start the pipeline again. Go back to step 11 and repeat.
-
-On the first pipeline run, there will be a delay as Jenkins is instantiated for the project.
 
 ### Creating a project
 
