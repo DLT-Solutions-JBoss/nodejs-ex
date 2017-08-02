@@ -64,7 +64,7 @@ objects:
                     def slurpedResponse = new JsonSlurperClassic().parseText(authtokenResponse.content)
                     def launchResponse = httpRequest consoleLogResponseBody: true, contentType: 'APPLICATION_JSON', httpMode: 'POST', customHeaders: [[name: 'Authorization', value: "Token ${slurpedResponse.token}"]], requestBody: '{}', url: "https://ansibletower.demo-dlt.com/api/v1/job_templates/266/launch/", validResponseCodes: '201'
                     slurpedResponse = new JsonSlurperClassic().parseText(launchResponse.content)
-                    println "Ansible job started: #${slurpedResponse.job}"
+                    println "Ansible job: https://ansibletower.demo-dlt.com/#/jobs/${slurpedResponse.job}"
                   }
 
                   stage("Test") {
