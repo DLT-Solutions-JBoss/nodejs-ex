@@ -15,7 +15,7 @@ To run this example:
    5. Paste the YAML text in the text box of the Import YAML/JSON tab. (make sure the last line is lined up in yaml)
    6. Click on Create
    7. Leave Process the template checked and click on Continue
-   8. Modify the Git Repository URL to contain the URL of your fork (https://github.com/MichaelFitzurka/nodejs-ex.git)
+   8. Modify the Git Repository URL to contain the URL of your fork (https://github.com/DLT-Solutions-JBoss/nodejs-ex.git)
    9. Add the Ansible Username and Ansible Password
    10. Click on Create and Continue to Overview
    11. When the Jenkins pod has started, click on the Route to bring up Jenkins
