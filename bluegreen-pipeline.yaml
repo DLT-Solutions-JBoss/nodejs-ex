@@ -58,14 +58,14 @@ objects:
                     openshiftVerifyDeployment deploymentConfig: "${appName}-${tag}", verbose: verbose
                   }
      
-                  stage("Ansible Security Check") {
-                    echo "Ansible Security Check"
-                    def authtokenResponse = httpRequest consoleLogResponseBody: false, contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: '{"username":"${ANSIBLE_USERNAME}","password":"${ANSIBLE_PASSWORD}"}', url: "https://ansibletower.demo-dlt.com/api/v1/authtoken/", validResponseCodes: '200'
-                    def slurpedResponse = new JsonSlurperClassic().parseText(authtokenResponse.content)
-                    def launchResponse = httpRequest consoleLogResponseBody: true, contentType: 'APPLICATION_JSON', httpMode: 'POST', customHeaders: [[name: 'Authorization', value: "Token ${slurpedResponse.token}"]], requestBody: '{}', url: "https://ansibletower.demo-dlt.com/api/v1/job_templates/266/launch/", validResponseCodes: '201'
-                    slurpedResponse = new JsonSlurperClassic().parseText(launchResponse.content)
-                    println "Ansible job: https://ansibletower.demo-dlt.com/#/jobs/${slurpedResponse.job}"
-                  }
+#                  stage("Ansible Security Check") {
+#                    echo "Ansible Security Check"
+#                    def authtokenResponse = httpRequest consoleLogResponseBody: false, contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: '{"username":"${ANSIBLE_USERNAME}","password":"${ANSIBLE_PASSWORD}"}', url: "https://ansibletower.demo-dlt.com/api/v1/authtoken/", validResponseCodes: '200'
+#                    def slurpedResponse = new JsonSlurperClassic().parseText(authtokenResponse.content)
+#                    def launchResponse = httpRequest consoleLogResponseBody: true, contentType: 'APPLICATION_JSON', httpMode: 'POST', customHeaders: [[name: 'Authorization', value: "Token ${slurpedResponse.token}"]], requestBody: '{}', url: "https://ansibletower.demo-dlt.com/api/v1/job_templates/266/launch/", validResponseCodes: '201'
+#                    slurpedResponse = new JsonSlurperClassic().parseText(launchResponse.content)
+#                    println "Ansible job: https://ansibletower.demo-dlt.com/#/jobs/${slurpedResponse.job}"
+#                  }
 
                   stage("Test") {
                     input message: "Test deployment: http://${routeHost}. Approve?", id: "approval"
