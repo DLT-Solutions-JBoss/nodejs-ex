@@ -381,7 +381,7 @@ parameters:
   displayName: Name
   name: NAME
   required: true
-  value: nodejs-mongodb-example
+  value: nodejs-pipeline
 - description: The exposed hostname that will route to the Node.js service, if left
     blank a value will be defaulted.
   displayName: Application Hostname
@@ -390,7 +390,7 @@ parameters:
   displayName: Git Repository URL
   name: SOURCE_REPOSITORY_URL
   required: true
-  value: https://github.com/openshift/nodejs-ex.git
+  value: https://github.com/DLT-Solutions-JBoss/nodejs-ex.git
 - description: The reference of the repository with your application source code.
   displayName: Git Repository Ref
   name: SOURCE_REPOSITORY_REF
